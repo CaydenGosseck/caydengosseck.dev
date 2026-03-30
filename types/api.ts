@@ -75,7 +75,43 @@ export type GithubRawRepo = {
     owner: { login: string };
 };
 
+export type Subscriber = {
+    id: number;
+    email: string;
+    confirmed: boolean;
+    unsubscribeToken: string;
+    created_at: string;
+};
+
+export type Subscription = {
+    id: number;
+    subscriberId: number;
+    blogTitle: string | null;
+    created_at: string;
+};
+
+export type SubscribeDto = {
+    email: string;
+    blogTitle?: string;
+};
+
 // DTOs
 export type CreateBlogDto = { title: string };
 export type CreatePostDto = { title: string; content?: string };
 export type CreateMiniBlogDto = { title: string; content?: string };
+export type CreateCommentDto = { name: string; message: string };
+
+export type Comment = {
+    id: number;
+    name: string;
+    message: string;
+    verified: boolean;
+    created_at: string;
+};
+
+export type PaginatedComments = {
+    comments: Comment[];
+    total: number;
+    page: number;
+    pageSize: number;
+};

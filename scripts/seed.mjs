@@ -20,4 +20,15 @@ await supabase.from("posts").insert({
     post_title: "getting started with sqlite in next.js",
 });
 
+// Seed comments (verified and unverified)
+await supabase.from("comments").insert([
+    { name: "alex", message: "really enjoying the retro aesthetic here. the starfield is a nice touch.", verified: true },
+    { name: "morgan", message: "the /stats page is a cool idea, haven't seen that on many personal sites.", verified: true },
+    { name: "jordan", message: "what's your stack for the blog? curious if you're using mdx or something else.", verified: true },
+    { name: "sam", message: "found a typo on the projects page but can't remember which one. great site though!", verified: true },
+    { name: "riley", message: "nova slim is such a good font choice for the headings.", verified: true },
+    { name: "charlie", message: "do you plan on writing about the tech behind this site?", verified: false },
+    { name: "taylor", message: "love the neobrutalist card style.", verified: false },
+]);
+
 console.log("seeded.");

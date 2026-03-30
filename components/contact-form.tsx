@@ -36,8 +36,8 @@ export default function ContactForm() {
         }
     }
 
-    const inputClass = "w-full px-3 py-2 font-sans text-sm border-2 bg-transparent outline-none focus:border-[var(--foreground)] transition-colors duration-150";
-    const inputStyle = { borderColor: "var(--border-color)", color: "var(--foreground)" };
+    const inputClass = "w-full px-3 py-2 font-sans text-sm border-0 border-b outline-none transition-colors duration-150";
+    const inputStyle = { background: "var(--background)", borderColor: "var(--muted-text)", color: "var(--foreground)" };
 
     if (state === "success") {
         return (
@@ -70,6 +70,7 @@ export default function ContactForm() {
                         </label>
                         <input
                             id="contact-name"
+                            name="name"
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
@@ -85,11 +86,13 @@ export default function ContactForm() {
                         </label>
                         <input
                             id="contact-email"
+                            name="email"
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                             autoComplete="email"
+                            spellCheck={false}
                             className={inputClass}
                             style={inputStyle}
                         />
@@ -100,6 +103,7 @@ export default function ContactForm() {
                         </label>
                         <textarea
                             id="contact-message"
+                            name="message"
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
                             required
@@ -122,13 +126,14 @@ export default function ContactForm() {
                     <button
                         type="submit"
                         disabled={state === "loading"}
-                        className="font-pixel text-[10px] uppercase tracking-widest px-4 py-3 border-2 transition-colors duration-150 hover:bg-[var(--muted-bg)] active:bg-[var(--accent)] disabled:opacity-50 disabled:cursor-not-allowed w-fit"
+                        className="font-pixel text-[10px] uppercase tracking-widest px-3 py-2 transition-colors duration-150 hover:bg-[var(--muted-bg)] active:bg-[var(--accent)] disabled:opacity-50 disabled:cursor-not-allowed w-fit"
                         style={{
-                            borderColor: "var(--border-color)",
+                            border: "1px solid var(--border-color)",
                             background: "transparent",
+                            color: "var(--foreground)",
                         }}
                     >
-                        {state === "loading" ? "Sending..." : "Send"}
+                        {state === "loading" ? "Sending…" : "Send"}
                     </button>
                 </form>
             </Card.Content>

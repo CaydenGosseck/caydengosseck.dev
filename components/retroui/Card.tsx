@@ -9,10 +9,10 @@ type CardProps = HTMLAttributes<HTMLDivElement> & {
 const Card = ({ className, style, ...props }: CardProps) => {
   return (
     <div
-      className={cn("block rounded-2xl transition-all", className)}
+      className={cn("block rounded-2xl transition-colors", className)}
       style={{
         background: "var(--card-bg)",
-        border: "2px solid var(--border-color)",
+        border: "1px solid var(--border-color)",
         ...style
       }}
       {...props}

@@ -31,27 +31,23 @@ const links: SocialLink[] = [
 
 export default function SocialIcons() {
     return (
-        <div
-            className="flex items-center w-fit"
-            style={{
-                border: "2px solid var(--border-color)",
-            }}
-        >
-            {links.map((link, i) => (
+        <div className="flex items-center gap-2">
+            {links.map((link) => (
                 <a
                     key={link.label}
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={link.label}
-                    className="flex items-center justify-center w-11 h-11 transition-colors duration-150 hover:bg-[var(--muted-bg)] active:bg-[var(--accent)]"
+                    className="flex items-center gap-2 px-3 py-2 font-pixel text-[10px] uppercase tracking-widest transition-colors duration-150 hover:bg-[var(--muted-bg)] active:bg-[var(--accent)]"
                     style={{
+                        border: "1px solid var(--border-color)",
                         color: "var(--foreground)",
-                        borderLeft: i > 0 ? "2px solid var(--border-color)" : undefined,
                         textDecoration: "none",
                     }}
                 >
                     {link.icon}
+                    {link.label}
                 </a>
             ))}
         </div>

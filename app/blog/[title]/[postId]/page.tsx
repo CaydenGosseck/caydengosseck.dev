@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getPostByIdFull } from "@/lib/dal/posts";
 import DateDisplay from "@/components/date-display";
 import EmptyState from "@/components/empty-state";
+import SubscribeForm from "@/components/subscribe-form";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -60,6 +61,8 @@ export default async function PostPage({ params }: { params: Promise<{ title: st
                 title="This post is being written."
                 description="Check back soon."
             />
+
+            <SubscribeForm blogTitle={post.blogTitle} />
         </div>
     );
 }

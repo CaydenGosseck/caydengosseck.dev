@@ -1,6 +1,8 @@
 import InlineLink from "@/components/inline-link";
 import { Card } from "@/components/retroui/Card";
 import ContactForm from "@/components/contact-form";
+import CommentsSection from "@/components/comments-section";
+import SubscribeForm from "@/components/subscribe-form";
 
 export default function HomePage() {
     return (
@@ -30,7 +32,9 @@ export default function HomePage() {
                     </div>
                 </Card.Content>
             </Card>
+            <SubscribeForm />
             <ContactForm />
+            <CommentsSection />
         </div>
     );
 }

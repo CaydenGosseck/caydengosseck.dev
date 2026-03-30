@@ -32,12 +32,20 @@ RetroUI is used for the card-based UI. It is a NeoBrutalist design system instal
 
 ---
 
-# Design — Retro Theme on Readable Foundations
+# Design — Retro Sci-Fi Theme on Readable Foundations
 
 ShadCN components provide the readable, accessible base. The retro aesthetic is applied through theming — not by replacing components with custom ones.
 
-- **Fonts**: Use "Press Start 2P" (`font-mono`) for the site title, card label bars, and decorative/accent text only. Use Geist Sans (`font-sans`) for all body text, descriptions, blog content, and anything meant to be read at length.
-- **Colors**: Black and white is the active theme (`html.bw` class, hardcoded in `app/layout.tsx`). The original purple theme remains in `:root` in `app/globals.css` as an alternate. All theming is via CSS custom properties — never hardcode color values in components.
+- **Fonts**:
+  - **Nova Slim** (`font-pixel`, `--font-nova-slim`) — site title, card label bars, buttons, and all decorative/accent text. Classic sci-fi feel.
+  - **Forum** (`font-sans`, `--font-forum`) — all body text, descriptions, blog content, and anything meant to be read at length.
+  - **Philosopher** (`font-serif`, `--font-philosopher`) — headings (`h1–h6`). Elegant and editorial.
+  - **Geist Mono** (`font-mono`) — code blocks only. Do not use for UI.
+  - Geist Sans is kept as a fallback but is not the primary body font.
+- **Colors**: The active theme is `html.bw` (hardcoded in `app/layout.tsx`) — a dark space palette with deep wine/berry backgrounds, cream borders (`--border-color: #f0e8d8`), strawberry-red accents (`--accent: #8b1c30`), and blue-tinted primary (`--primary: #859ddb`). The original purple theme remains in `:root` in `app/globals.css` as an alternate. All theming is via CSS custom properties — never hardcode color values in components.
+- **Background**: An animated canvas starfield (`components/starfield.tsx`) sits at `z-index: 0` fixed behind all content. The `html` element holds the background color; `body` and content panels are transparent so the stars show through.
+- **Cards**: 1px cream border (`--border-color`), dark berry background (`--card-bg`). No box shadow.
+- **Buttons**: Unified style — 1px cream border, transparent background, Nova Slim uppercase label, `hover:bg-[var(--muted-bg)]`, `active:bg-[var(--accent)]`. Apply consistently to all interactive buttons including social icons and form submit buttons.
 - **Readability is the priority.** Never sacrifice legibility for aesthetic. If something is hard to read, the aesthetic loses.
 
 ---

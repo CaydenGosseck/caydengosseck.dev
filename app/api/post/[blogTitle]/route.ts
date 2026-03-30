@@ -1,6 +1,8 @@
+import { after } from "next/server";
 import { authenticate } from "@/lib/auth";
 import { getPostsByBlog, createPost } from "@/lib/dal/posts";
 import { getBlogByTitle } from "@/lib/dal/blogs";
+import { sendNewPostNewsletter } from "@/lib/newsletter";
 
 const MAX_CONTENT_BYTES = 1_000_000; // 1MB
 
@@ -39,5 +41,10 @@ export async function POST(
     }
 
     const post = await createPost(blogTitleDecoded, title, content);
+    after(() =>
+        sendNewPostNewsletter(blogTitleDecoded, title, post.postId).catch((err) =>
+            console.error("Newsletter send failed for post", post.postId, err)
+        )
+    );
     return Response.json(post, { status: 201 });
 }
