@@ -39,3 +39,20 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# database
+*.db
+*.sqlite
+
+# runtime content
+posts/
+mini_blog/
+
+# IDE
+.idea/
+
+# claude code
+.claude/
+
+# screenshots
+screenshot_*.png

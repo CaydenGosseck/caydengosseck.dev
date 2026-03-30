@@ -1,26 +1,242 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card-bg);
+  --color-card-foreground: var(--foreground);
+  --color-muted: var(--muted-bg);
+  --color-muted-foreground: var(--muted-text);
+  --color-border: var(--border-color);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-sidebar: var(--sidebar-background);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --font-sans: var(--font-geist-sans), sans-serif;
+  --font-mono: var(--font-press-start), "Press Start 2P", monospace;
+  --font-serif: var(--font-geist-sans), sans-serif;
+  --radius: 1rem;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  /* ── Spacing scale ── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+  --space-10: 4rem;
+
+  /* ── Core palette ── */
+  --background: #0d0014;
+  --foreground: #cc66ff;
+  --card-bg: #130020;
+  --border-color: #7700bb;
+  --muted-bg: #1a0028;
+  --muted-text: #9933dd;
+
+  /* ── ShadCN / RetroUI semantic tokens ── */
+  --primary: #cc66ff;
+  --primary-foreground: #0d0014;
+  --secondary: #1a0028;
+  --secondary-foreground: #cc66ff;
+  --accent: #7700bb;
+  --accent-foreground: #ffffff;
+  --ring: #cc66ff;
+  --input: #1a0028;
+  --link: #b388ff;
+
+  /* ── Sidebar tokens (ShadCN Sidebar) ── */
+  --sidebar-background: #0d0014;
+  --sidebar-foreground: #cc66ff;
+  --sidebar-border: #7700bb;
+  --sidebar-accent: #1a0028;
+  --sidebar-accent-foreground: #cc66ff;
+  --sidebar-ring: #cc66ff;
+
+  /* ── RetroUI shadow color ── */
+  --shadow: #7700bb;
+  --sidebar: #0d0014;
+  --sidebar-primary: #cc66ff;
+  --sidebar-primary-foreground: #0d0014;
+}
+
+/* ── Strawberry theme ── */
+html.bw {
+  --background: #100a16;
+  --foreground: #deeed6;
+  --card-bg: #160e1e;
+  --border-color: #deeed6;
+  --muted-bg: #1a0f24;
+  --muted-text: #a0b898;
+  --primary: #859ddb;
+  --primary-foreground: #100a16;
+  --secondary: #1a0f24;
+  --secondary-foreground: #deeed6;
+  --accent: #346524;
+  --accent-foreground: #deeed6;
+  --ring: #859ddb;
+  --input: #1a0f24;
+  --shadow: #346524;
+  --link: #859ddb;
+  --sidebar-background: #100a16;
+  --sidebar-foreground: #deeed6;
+  --sidebar-border: #deeed6;
+  --sidebar-accent: #1a0f24;
+  --sidebar-accent-foreground: #deeed6;
+  --sidebar-ring: #859ddb;
+  --sidebar: #100a16;
+  --sidebar-primary: #859ddb;
+  --sidebar-primary-foreground: #100a16;
+}
+
+html {
+  height: 100%;
+  background: transparent;
 }
 
 body {
+  min-height: 100vh;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
 }
+
+a {
+  text-decoration: underline;
+  color: var(--link);
+}
+
+a:visited {
+  color: var(--link);
+}
+
+a:hover {
+  color: #6dc2ca;
+}
+
+a:active {
+  color: #dad45e;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--foreground);
+}
+
+nav a:visited {
+  color: var(--foreground);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary);
+}
+
+blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1.5rem;
+  margin-left: 0;
+  color: var(--muted-text);
+}
+
+hr {
+  border: none;
+  border-top: 2px dashed var(--primary);
+  margin: 1.5rem 0;
+}
+
+code {
+  background: var(--accent);
+  color: var(--foreground);
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
+}
+
+/* ── Retro scrollbar (Webkit + Firefox) ── */
+* {
+  scrollbar-color: var(--border-color) var(--card-bg);
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--card-bg);
+  border-left: 2px solid var(--border-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border: 2px solid var(--card-bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--card-bg);
+}
+
+/* ── Typography scale ── */
+.text-body-sm  { font-family: var(--font-geist-sans), sans-serif; font-size: 0.875rem; line-height: 1.5; }
+.text-body-md  { font-family: var(--font-geist-sans), sans-serif; font-size: 1rem;     line-height: 1.6; }
+.text-body-lg  { font-family: var(--font-geist-sans), sans-serif; font-size: 1.125rem; line-height: 1.7; }
+
+/* ── Pixel font utility (Press Start 2P — titles and accents only) ── */
+.font-pixel {
+  font-family: var(--font-press-start), "Press Start 2P", monospace;
+  color: var(--primary);
+}
+
+/* ── Pixel font scale (higher line-heights compensate for readability) ── */
+.text-pixel-xs { font-family: var(--font-press-start), "Press Start 2P", monospace; font-size: 0.625rem; line-height: 1.8; }
+.text-pixel-sm { font-family: var(--font-press-start), "Press Start 2P", monospace; font-size: 0.75rem;  line-height: 1.6; }
+.text-pixel-md { font-family: var(--font-press-start), "Press Start 2P", monospace; font-size: 0.875rem; line-height: 1.5; }
+.text-pixel-lg { font-family: var(--font-press-start), "Press Start 2P", monospace; font-size: 1.25rem;  line-height: 1.4; }
+
+/* ── Focus rings (accessibility) ── */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+

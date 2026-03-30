@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <!-- outline/shadow layer (dark purple, offset 1px) -->
+  <!-- index finger -->
+  <rect x="7" y="1" width="4" height="2" fill="#180028"/>
+  <rect x="7" y="3" width="4" height="2" fill="#180028"/>
+  <rect x="7" y="5" width="4" height="2" fill="#180028"/>
+  <rect x="7" y="7" width="4" height="2" fill="#180028"/>
+  <rect x="7" y="9" width="4" height="2" fill="#180028"/>
+  <!-- middle finger -->
+  <rect x="11" y="7" width="4" height="2" fill="#180028"/>
+  <rect x="11" y="9" width="4" height="2" fill="#180028"/>
+  <!-- ring finger -->
+  <rect x="15" y="9" width="4" height="2" fill="#180028"/>
+  <rect x="15" y="11" width="4" height="2" fill="#180028"/>
+  <!-- pinky -->
+  <rect x="19" y="11" width="4" height="2" fill="#180028"/>
+  <rect x="19" y="13" width="4" height="2" fill="#180028"/>
+  <!-- palm -->
+  <rect x="7" y="11" width="16" height="2" fill="#180028"/>
+  <rect x="7" y="13" width="16" height="2" fill="#180028"/>
+  <rect x="7" y="15" width="16" height="2" fill="#180028"/>
+  <rect x="7" y="17" width="16" height="2" fill="#180028"/>
+  <rect x="7" y="19" width="16" height="2" fill="#180028"/>
+  <!-- thumb -->
+  <rect x="3" y="13" width="4" height="2" fill="#180028"/>
+  <rect x="3" y="15" width="4" height="2" fill="#180028"/>
+  <rect x="3" y="17" width="4" height="2" fill="#180028"/>
+
+  <!-- white fill layer -->
+  <!-- index finger -->
+  <rect x="8" y="2" width="2" height="2" fill="#ffffff"/>
+  <rect x="8" y="4" width="2" height="2" fill="#ffffff"/>
+  <rect x="8" y="6" width="2" height="2" fill="#ffffff"/>
+  <rect x="8" y="8" width="2" height="2" fill="#ffffff"/>
+  <!-- middle finger -->
+  <rect x="12" y="8" width="2" height="2" fill="#ffffff"/>
+  <rect x="12" y="10" width="2" height="2" fill="#ffffff"/>
+  <!-- ring finger -->
+  <rect x="16" y="10" width="2" height="2" fill="#ffffff"/>
+  <rect x="16" y="12" width="2" height="2" fill="#ffffff"/>
+  <!-- pinky -->
+  <rect x="20" y="12" width="2" height="2" fill="#ffffff"/>
+  <rect x="20" y="14" width="2" height="2" fill="#ffffff"/>
+  <!-- palm -->
+  <rect x="8" y="10" width="14" height="2" fill="#ffffff"/>
+  <rect x="8" y="12" width="14" height="2" fill="#ffffff"/>
+  <rect x="8" y="14" width="14" height="2" fill="#ffffff"/>
+  <rect x="8" y="16" width="14" height="2" fill="#ffffff"/>
+  <rect x="8" y="18" width="14" height="2" fill="#ffffff"/>
+  <!-- thumb -->
+  <rect x="4" y="14" width="2" height="2" fill="#ffffff"/>
+  <rect x="4" y="16" width="2" height="2" fill="#ffffff"/>
+</svg>

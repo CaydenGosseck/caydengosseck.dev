@@ -1,0 +1,18 @@
+{
+  "name": "Cayden Gosseck",
+  "age": 20,
+  "height": "6'1\"",
+  "weight": "185 lbs",
+  "currentJob": "Software Developer",
+  "currentDegree": "B.S. Computer Science",
+  "languages": ["Go", "TypeScript", "Python", "SQL", "Bash"],
+  "strength": {
+    "bench": "225 lbs",
+    "squat": "315 lbs",
+    "deadlift": "405 lbs"
+  },
+  "techStack": ["Next.js", "React", "Tailwind CSS", "SQLite", "Docker", "Git"],
+  "hobbies": ["weight training", "gaming", "reading", "hiking"],
+  "currentGoals": ["ship personal site", "learn Rust", "hit 500 lb deadlift"],
+  "achievements": ["built AsyncPool in Go", "launched caydengosseck.dev"]
+}
