@@ -172,6 +172,7 @@ export async function getSubscribersForBlog(blogTitle: string): Promise<Subscrib
     const result: Subscriber[] = [];
     for (const row of [...(generalData ?? []), ...(blogData ?? [])]) {
         const sub = row.subscribers as Record<string, unknown>;
+        const sub = row.subscribers as unknown as Record<string, unknown>;
         if (!sub.confirmed || sub.deleted) continue;
         const id = sub.id as number;
         if (seen.has(id)) continue;
