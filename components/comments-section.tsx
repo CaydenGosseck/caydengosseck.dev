@@ -9,7 +9,7 @@ type FormState = "idle" | "loading" | "success" | "error";
 
 const PAGE_SIZE = 10;
 
-export default function CommentsSection() {
+export default function CommentsSection({ className }: { className?: string }) {
     // --- list state ---
     const [data, setData] = useState<PaginatedComments | null>(null);
     const [listLoading, setListLoading] = useState(true);
@@ -70,7 +70,7 @@ export default function CommentsSection() {
     const btnStyle = { border: "1px solid var(--border-color)", background: "transparent", color: "var(--foreground)" };
 
     return (
-        <Card>
+        <Card className={className}>
             <Card.Header>
                 <Card.Title>comments</Card.Title>
             </Card.Header>

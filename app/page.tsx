@@ -46,14 +46,14 @@ export default async function HomePage({ searchParams }: HomePageProps) {
                     </div>
                 </div>
                 {/* Col 2: stat sheet */}
-                <section aria-labelledby="stats-heading">
+                <section aria-labelledby="stats-heading" className="h-full">
                     <h2 id="stats-heading" className="sr-only">Stats</h2>
-                    <StatSheet />
+                    <StatSheet className="h-full" />
                 </section>
                 {/* Col 3: comments */}
-                <section aria-labelledby="comments-heading">
+                <section aria-labelledby="comments-heading" className="h-full">
                     <h2 id="comments-heading" className="sr-only">Comments</h2>
-                    <CommentsSection />
+                    <CommentsSection className="h-full" />
                 </section>
             </div>
         </div>

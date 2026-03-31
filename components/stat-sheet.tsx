@@ -37,9 +37,9 @@ function ListField({ label, items }: { label: string; items: string[] }) {
     );
 }
 
-export default function StatSheet() {
+export default function StatSheet({ className }: { className?: string }) {
     return (
-        <Card>
+        <Card className={className}>
             <Card.Header>
                 <Card.Title>stat sheet</Card.Title>
             </Card.Header>
