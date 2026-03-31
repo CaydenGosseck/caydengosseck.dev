@@ -22,6 +22,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
                     <Card>
                         <Card.Content>
                             <div className="flex flex-col gap-4 max-w-prose">
+                                <h2 className="sr-only">About</h2>
                                 <p className="font-sans text-base leading-relaxed" style={{ color: "var(--foreground)" }}>
                                     Welcome to caydengosseck.dev!
                                 </p>
@@ -45,9 +46,15 @@ export default async function HomePage({ searchParams }: HomePageProps) {
                     </div>
                 </div>
                 {/* Col 2: stat sheet */}
-                <StatSheet />
+                <section aria-labelledby="stats-heading">
+                    <h2 id="stats-heading" className="sr-only">Stats</h2>
+                    <StatSheet />
+                </section>
                 {/* Col 3: comments */}
-                <CommentsSection />
+                <section aria-labelledby="comments-heading">
+                    <h2 id="comments-heading" className="sr-only">Comments</h2>
+                    <CommentsSection />
+                </section>
             </div>
         </div>
     );

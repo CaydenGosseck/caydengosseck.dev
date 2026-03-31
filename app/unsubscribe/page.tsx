@@ -16,8 +16,8 @@ export default async function UnsubscribePage({
                     </h1>
                     <p className="font-sans text-base" style={{ color: "var(--foreground)" }}>
                         {blog
-                            ? `You've been unsubscribed from "${blog}".`
-                            : "You've been unsubscribed from all notifications."}
+                            ? `You\u2019ve been unsubscribed from \u201C${blog}\u201D.`
+                            : "You\u2019ve been unsubscribed from all notifications."}
                     </p>
                     <p className="font-sans text-sm" style={{ color: "var(--muted-text)" }}>
                         Changed your mind?{" "}

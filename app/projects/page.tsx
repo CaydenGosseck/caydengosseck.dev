@@ -33,7 +33,8 @@ export default async function ProjectsPage() {
         return (
             <div className="flex flex-col gap-6 py-6">
                 {breadcrumb}
-                <p className="font-sans text-base italic" style={{ color: "var(--muted-text)" }}>no projects yet.</p>
+                <h1 className="sr-only">Projects</h1>
+                <p className="font-sans text-base italic" style={{ color: "var(--muted-text)" }}>No projects yet.</p>
             </div>
         );
     }

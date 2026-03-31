@@ -7,7 +7,8 @@ export default async function BlogsPage() {
     if (blogs.length === 0) {
         return (
             <div className="py-6">
-                <p className="font-sans text-base italic" style={{ color: "var(--muted-text)" }}>no blogs yet.</p>
+                <h1 className="sr-only">Blogs</h1>
+                <p className="font-sans text-base italic" style={{ color: "var(--muted-text)" }}>No blogs yet.</p>
             </div>
         );
     }

@@ -1,6 +1,30 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getPostByIdFull, readPostContent } from "@/lib/dal/posts";
+
+export async function generateMetadata({ params }: { params: Promise<{ title: string; postId: string }> }): Promise<Metadata> {
+    const { title, postId } = await params;
+    const id = Number(postId);
+    if (isNaN(id)) return { title: "Post Not Found" };
+    const post = await getPostByIdFull(id);
+    if (!post) return { title: "Post Not Found" };
+    const decoded = decodeURIComponent(title);
+    const description = `\u201C${post.title}\u201D \u2014 a post in the ${decoded} blog by Cayden Gosseck.`;
+    return {
+        title: post.title,
+        description,
+        openGraph: {
+            type: "article",
+            title: post.title,
+            description,
+            url: `/blog/${title}/${postId}`,
+            publishedTime: post.created_at,
+            modifiedTime: post.updated_at,
+            authors: ["https://caydengosseck.dev"],
+        },
+    };
+}
 import DateDisplay from "@/components/date-display";
 import EmptyState from "@/components/empty-state";
 import SubscribeModal from "@/components/subscribe-modal";

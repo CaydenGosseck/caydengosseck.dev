@@ -38,8 +38,35 @@ const philosopher = Philosopher({
 });
 
 export const metadata: Metadata = {
-    title: "Cayden Gosseck",
-    description: "my personal website",
+    metadataBase: new URL("https://caydengosseck.dev"),
+    title: {
+        default: "Cayden Gosseck",
+        template: "%s | Cayden Gosseck",
+    },
+    description: "Personal site of Cayden Gosseck — software developer. Read my blog, explore projects, and get in touch.",
+    authors: [{ name: "Cayden Gosseck", url: "https://caydengosseck.dev" }],
+    creator: "Cayden Gosseck",
+    openGraph: {
+        type: "website",
+        locale: "en_US",
+        url: "https://caydengosseck.dev",
+        siteName: "Cayden Gosseck",
+        title: "Cayden Gosseck",
+        description: "Personal site of Cayden Gosseck — software developer. Read my blog, explore projects, and get in touch.",
+    },
+    twitter: {
+        card: "summary",
+        title: "Cayden Gosseck",
+        description: "Personal site of Cayden Gosseck — software developer. Read my blog, explore projects, and get in touch.",
+    },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+        },
+    },
 };
 
 export const viewport: Viewport = {
@@ -56,7 +83,7 @@ export default function RootLayout({
                 <div style={{ position: "relative", zIndex: 1 }}>
                 <a
                     href="#main-content"
-                    className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:text-sm font-sans"
+                    className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:px-4 focus-visible:py-2 focus-visible:text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)] font-sans"
                     style={{ background: "var(--primary)", color: "var(--primary-foreground)" }}
                 >
                     Skip to content
@@ -68,7 +95,7 @@ export default function RootLayout({
                             {/* Row 1: nav + controls */}
                             <div className="flex items-center justify-between gap-3 pb-3">
                                 <div className="flex items-center gap-3">
-                                    <SidebarTrigger className="text-[var(--foreground)]" />
+                                    <SidebarTrigger className="text-[var(--foreground)]" aria-label="Toggle sidebar" />
                                     <Nav />
                                 </div>
                                 <SocialIcons />

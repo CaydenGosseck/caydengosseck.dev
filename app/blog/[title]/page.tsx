@@ -1,7 +1,25 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getBlogByTitle } from "@/lib/dal/blogs";
 import { getPostsByBlog } from "@/lib/dal/posts";
+
+export async function generateMetadata({ params }: { params: Promise<{ title: string }> }): Promise<Metadata> {
+    const { title } = await params;
+    const decoded = decodeURIComponent(title);
+    const blog = await getBlogByTitle(decoded);
+    if (!blog) return { title: "Blog Not Found" };
+    const description = `Posts in the \u201C${blog.title}\u201D blog by Cayden Gosseck.`;
+    return {
+        title: blog.title,
+        description,
+        openGraph: {
+            title: blog.title,
+            description,
+            url: `/blog/${title}`,
+        },
+    };
+}
 import DateDisplay from "@/components/date-display";
 import SubscribeModal from "@/components/subscribe-modal";
 import {

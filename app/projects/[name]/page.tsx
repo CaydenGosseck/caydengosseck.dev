@@ -1,6 +1,26 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getProjectByName } from "@/lib/dal/projects";
+
+export async function generateMetadata({ params }: { params: Promise<{ name: string }> }): Promise<Metadata> {
+    const { name } = await params;
+    const decoded = decodeURIComponent(name);
+    const project = await getProjectByName(decoded);
+    if (!project) return { title: "Project Not Found" };
+    const description = project.description
+        ? `${project.name} — ${project.description}`
+        : `${project.name} — a project by Cayden Gosseck.`;
+    return {
+        title: project.name,
+        description,
+        openGraph: {
+            title: project.name,
+            description,
+            url: `/projects/${name}`,
+        },
+    };
+}
 import { getRepoReadme } from "@/lib/github";
 import { DEVICON_MAP, deviconUrl } from "@/lib/github";
 import ReadmeDisplay from "@/components/readme-display";
@@ -99,6 +119,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ name: 
                                                         alt={lang}
                                                         width={14}
                                                         height={14}
+                                                        loading="lazy"
                                                         className="shrink-0"
                                                         style={{ filter: "brightness(0) invert(0.7)" }}
                                                     />
@@ -117,7 +138,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ name: 
                                     href={repo.link}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="font-pixel text-[10px] uppercase tracking-widest px-3 py-2 w-fit transition-colors duration-150 hover:bg-[var(--muted-bg)]"
+                                    className="font-pixel text-[10px] uppercase tracking-widest px-3 py-2 w-fit transition-colors duration-150 motion-reduce:transition-none hover:bg-[var(--muted-bg)]"
                                     style={{ border: "1px solid var(--border-color)", color: "var(--foreground)" }}
                                 >
                                     view on github
