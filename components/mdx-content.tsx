@@ -1,7 +1,7 @@
 import { compileMDX } from "next-mdx-remote/rsc";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import type { Components } from "@mdx-js/react";
+import type { MDXComponents as Components } from "mdx/types";
 import { Callout } from "@/components/mdx/callout";
 import { Steps, Step } from "@/components/mdx/steps";
 import { CodeTitle } from "@/components/mdx/code-title";
