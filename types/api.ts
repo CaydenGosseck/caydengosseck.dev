@@ -39,8 +39,10 @@ type ProjectWithoutRepo = ProjectBase & {
 export type Project = ProjectWithRepo | ProjectWithoutRepo;
 
 export type Update = {
+    id: number;
     text: string;
     date: string;
+    created_at: string;
 };
 
 type PublicGitHubRepo = {
@@ -98,8 +100,12 @@ export type SubscribeDto = {
 // DTOs
 export type CreateBlogDto = { title: string };
 export type CreatePostDto = { title: string; content?: string };
+export type UpdatePostDto = { title?: string; content?: string };
 export type CreateMiniBlogDto = { title: string; content?: string };
 export type CreateCommentDto = { name: string; message: string };
+export type CreateProjectDto = { name: string; description?: string; url?: string };
+export type UpdateProjectDto = { description?: string; url?: string };
+export type ProjectRaw = { name: string; description: string | null; url: string | null };
 
 export type Comment = {
     id: number;

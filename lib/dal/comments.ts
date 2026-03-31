@@ -45,3 +45,11 @@ export async function verifyComment(id: number): Promise<void> {
         .eq("id", id);
     if (error) throw error;
 }
+
+export async function deleteComment(id: number): Promise<void> {
+    const { error } = await supabase
+        .from("comments")
+        .delete()
+        .eq("id", id);
+    if (error) throw error;
+}

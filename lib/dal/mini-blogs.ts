@@ -39,3 +39,11 @@ export async function createMiniBlog(title: string, content?: string): Promise<{
     if (error) throw error;
     return { id: data.id, title };
 }
+
+export async function deleteMiniBlog(id: number): Promise<void> {
+    const { error } = await supabase
+        .from("mini_blogs")
+        .delete()
+        .eq("id", id);
+    if (error) throw error;
+}

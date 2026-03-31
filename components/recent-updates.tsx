@@ -1,17 +1,7 @@
-import { readFileSync } from "fs";
-import path from "path";
-import type { Update } from "@/types/api";
+import { getRecentUpdate } from "@/lib/dal/updates";
 
-function getUpdates(): Update[] {
-    try {
-        const p = path.join(process.cwd(), "config", "updates.json");
-        return JSON.parse(readFileSync(p, "utf-8"));
-    } catch { return []; }
-}
-
-export default function RecentUpdates() {
-    const updates = getUpdates();
-    const latest = updates[0] ?? null;
+export default async function RecentUpdates() {
+    const latest = await getRecentUpdate();
     return (
         <p className="font-sans text-sm" style={{ color: "var(--muted-text)" }}>
             <span className="font-sans text-sm" style={{ color: "var(--foreground)" }}>recent updates </span>

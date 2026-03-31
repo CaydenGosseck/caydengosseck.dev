@@ -98,3 +98,15 @@ export async function deletePost(postId: number): Promise<void> {
         .eq("post_id", postId);
     if (error) throw error;
 }
+
+export async function updatePost(postId: number, fields: { title?: string; content?: string }): Promise<void> {
+    const update: Record<string, unknown> = {};
+    if (fields.title !== undefined) update.post_title = fields.title;
+    if (fields.content !== undefined) update.content = fields.content;
+    const { error } = await supabase
+        .from("posts")
+        .update(update)
+        .eq("post_id", postId)
+        .eq("deleted", false);
+    if (error) throw error;
+}

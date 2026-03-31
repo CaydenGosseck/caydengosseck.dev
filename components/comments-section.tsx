@@ -64,8 +64,9 @@ export default function CommentsSection() {
     const comments = data?.comments ?? [];
 
     const inputClass = "w-full px-3 py-2 font-sans text-sm border-0 border-b outline-none transition-colors duration-150";
-    const inputStyle = { background: "var(--background)", borderColor: "var(--muted-text)", color: "var(--foreground)" };
-    const btnClass = "font-pixel text-[10px] uppercase tracking-widest px-3 py-1 transition-colors duration-150 hover:bg-[var(--muted-bg)] active:bg-[var(--accent)] disabled:opacity-30 disabled:cursor-not-allowed";
+    const inputStyle = { background: "transparent", borderColor: "var(--border-color)", color: "var(--foreground)" };
+    const labelClass = "font-pixel text-[9px] uppercase tracking-widest";
+    const btnClass = "font-pixel text-[9px] uppercase tracking-widest px-3 py-1 transition-colors duration-150 hover:bg-[var(--muted-bg)] active:bg-[var(--accent)] disabled:opacity-30 disabled:cursor-not-allowed";
     const btnStyle = { border: "1px solid var(--border-color)", background: "transparent", color: "var(--foreground)" };
 
     return (
@@ -159,68 +160,74 @@ export default function CommentsSection() {
                     <div style={{ borderTop: "1px solid var(--border-color)" }} />
 
                     {/* comment form */}
-                    <p className="font-pixel text-sm uppercase tracking-widest" style={{ color: "var(--primary)" }}>
-                        leave a comment
-                    </p>
-                    {formState === "success" ? (
-                        <div>
-                            <p className="font-sans text-base" style={{ color: "var(--foreground)" }}>
-                                Comment submitted!
-                            </p>
-                            <p className="font-sans text-sm mt-1" style={{ color: "var(--muted-text)" }}>
-                                It will appear after review.
-                            </p>
+                    <div className="flex flex-col gap-4">
+                        <div className="flex items-center gap-2">
+                            <span className="font-pixel text-xs uppercase tracking-widest" style={{ color: "var(--primary)" }}>leave a comment</span>
+                            <div className="flex-1 h-px" style={{ background: "var(--border-color)" }} />
                         </div>
-                    ) : (
-                        <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
-                            <div className="flex flex-col gap-1">
-                                <label htmlFor="comment-name" className="font-sans text-sm" style={{ color: "var(--muted-text)" }}>
-                                    Name <span aria-hidden="true">*</span>
-                                </label>
-                                <input
-                                    id="comment-name"
-                                    name="name"
-                                    type="text"
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                    required
-                                    autoComplete="name"
-                                    className={inputClass}
-                                    style={inputStyle}
-                                />
-                            </div>
-                            <div className="flex flex-col gap-1">
-                                <label htmlFor="comment-message" className="font-sans text-sm" style={{ color: "var(--muted-text)" }}>
-                                    Message <span aria-hidden="true">*</span>
-                                </label>
-                                <textarea
-                                    id="comment-message"
-                                    name="message"
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                    required
-                                    rows={4}
-                                    className={inputClass}
-                                    style={{ ...inputStyle, resize: "vertical" }}
-                                />
-                            </div>
 
-                            {formState === "error" && (
-                                <p role="alert" className="font-sans text-sm" style={{ color: "var(--foreground)" }}>
-                                    {errorMsg}
+                        {formState === "success" ? (
+                            <div className="flex flex-col gap-1">
+                                <span className="font-pixel text-xs uppercase tracking-widest" style={{ color: "var(--primary)" }}>✦ submitted</span>
+                                <p className="font-sans text-sm" style={{ color: "var(--muted-text)" }}>
+                                    Your comment will appear after review.
                                 </p>
-                            )}
+                            </div>
+                        ) : (
+                            <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="flex flex-col gap-1">
+                                        <label htmlFor="comment-name" className={labelClass} style={{ color: "var(--muted-text)" }}>
+                                            Name <span aria-hidden="true">*</span>
+                                        </label>
+                                        <input
+                                            id="comment-name"
+                                            name="name"
+                                            type="text"
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
+                                            required
+                                            autoComplete="name"
+                                            placeholder="Your name"
+                                            className={inputClass}
+                                            style={inputStyle}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="flex flex-col gap-1">
+                                    <label htmlFor="comment-message" className={labelClass} style={{ color: "var(--muted-text)" }}>
+                                        Message <span aria-hidden="true">*</span>
+                                    </label>
+                                    <textarea
+                                        id="comment-message"
+                                        name="message"
+                                        value={message}
+                                        onChange={(e) => setMessage(e.target.value)}
+                                        required
+                                        rows={4}
+                                        placeholder="Share your thoughts…"
+                                        className={inputClass}
+                                        style={{ ...inputStyle, resize: "none" }}
+                                    />
+                                </div>
 
-                            <button
-                                type="submit"
-                                disabled={formState === "loading"}
-                                className="font-pixel text-[10px] uppercase tracking-widest px-3 py-2 transition-colors duration-150 hover:bg-[var(--muted-bg)] active:bg-[var(--accent)] disabled:opacity-50 disabled:cursor-not-allowed w-fit"
-                                style={{ border: "1px solid var(--border-color)", background: "transparent", color: "var(--foreground)" }}
-                            >
-                                {formState === "loading" ? "Submitting…" : "Submit"}
-                            </button>
-                        </form>
-                    )}
+                                {formState === "error" && (
+                                    <p role="alert" className="font-sans text-xs" style={{ color: "var(--accent)" }}>
+                                        {errorMsg}
+                                    </p>
+                                )}
+
+                                <button
+                                    type="submit"
+                                    disabled={formState === "loading"}
+                                    className={btnClass + " py-2 w-fit"}
+                                    style={btnStyle}
+                                >
+                                    {formState === "loading" ? "submitting…" : "post comment"}
+                                </button>
+                            </form>
+                        )}
+                    </div>
                 </div>
             </Card.Content>
         </Card>

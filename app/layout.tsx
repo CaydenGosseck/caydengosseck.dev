@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Nova_Slim, Forum, Philosopher } from "next/font/google";
 import "./globals.css";
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
@@ -40,6 +40,9 @@ const philosopher = Philosopher({
 export const metadata: Metadata = {
     title: "Cayden Gosseck",
     description: "my personal website",
+};
+
+export const viewport: Viewport = {
     themeColor: "#100a16",
 };
 

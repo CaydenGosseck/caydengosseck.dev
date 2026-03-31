@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import type { Project, GitHubRepo } from "@/types/api";
+import type { Project, GitHubRepo, ProjectRaw } from "@/types/api";
 
 type ProjectRow = {
     name: string;
@@ -78,6 +78,44 @@ export async function getAllProjects(): Promise<Project[]> {
         .order("created_at", { ascending: false });
     if (error) throw error;
     return Promise.all((data ?? []).map(hydrateProject));
+}
+
+export async function getAllProjectsRaw(): Promise<ProjectRaw[]> {
+    const { data, error } = await supabase
+        .from("projects")
+        .select("name, description, url")
+        .eq("deleted", false)
+        .order("created_at", { ascending: false });
+    if (error) throw error;
+    return data ?? [];
+}
+
+export async function createProject(name: string, description?: string, url?: string): Promise<{ name: string }> {
+    const { error } = await supabase
+        .from("projects")
+        .insert({ name, description: description ?? null, url: url ?? null });
+    if (error) throw error;
+    return { name };
+}
+
+export async function updateProject(name: string, fields: { description?: string; url?: string }): Promise<void> {
+    const update: Record<string, unknown> = {};
+    if (fields.description !== undefined) update.description = fields.description;
+    if (fields.url !== undefined) update.url = fields.url;
+    const { error } = await supabase
+        .from("projects")
+        .update(update)
+        .eq("name", name)
+        .eq("deleted", false);
+    if (error) throw error;
+}
+
+export async function deleteProject(name: string): Promise<void> {
+    const { error } = await supabase
+        .from("projects")
+        .update({ deleted: true })
+        .eq("name", name);
+    if (error) throw error;
 }
 
 export async function getProjectByName(name: string): Promise<Project | undefined> {

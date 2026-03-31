@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getPostByIdFull } from "@/lib/dal/posts";
+import { getPostByIdFull, readPostContent } from "@/lib/dal/posts";
 import DateDisplay from "@/components/date-display";
 import EmptyState from "@/components/empty-state";
-import SubscribeForm from "@/components/subscribe-form";
+import SubscribeModal from "@/components/subscribe-modal";
+import MDXContent from "@/components/mdx-content";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -20,7 +21,10 @@ export default async function PostPage({ params }: { params: Promise<{ title: st
 
     if (isNaN(id)) notFound();
 
-    const post = await getPostByIdFull(id);
+    const [post, content] = await Promise.all([
+        getPostByIdFull(id),
+        readPostContent(id),
+    ]);
 
     if (!post) notFound();
 
@@ -49,20 +53,20 @@ export default async function PostPage({ params }: { params: Promise<{ title: st
             </Breadcrumb>
 
             <div>
-                <h1 className="font-sans text-2xl font-bold mb-1" style={{ color: "var(--foreground)" }}>
+                <h1 className="font-serif text-2xl mb-1" style={{ color: "var(--primary)" }}>
                     {post.title}
                 </h1>
-                <p className="font-sans text-base" style={{ color: "var(--muted-text)" }}>
+                <p className="font-sans text-sm" style={{ color: "var(--muted-text)" }}>
                     <DateDisplay date={post.created_at} />
                 </p>
             </div>
 
-            <EmptyState
-                title="This post is being written."
-                description="Check back soon."
-            />
+            {content
+                ? <MDXContent source={content} />
+                : <EmptyState title="This post is being written." description="Check back soon." />
+            }
 
-            <SubscribeForm blogTitle={post.blogTitle} />
+            <SubscribeModal blogTitle={post.blogTitle} />
         </div>
     );
 }

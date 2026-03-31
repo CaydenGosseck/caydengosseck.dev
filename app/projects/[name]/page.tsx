@@ -2,8 +2,9 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getProjectByName } from "@/lib/dal/projects";
 import { getRepoReadme } from "@/lib/github";
-import InlineLink from "@/components/inline-link";
+import { DEVICON_MAP, deviconUrl } from "@/lib/github";
 import ReadmeDisplay from "@/components/readme-display";
+import { Card } from "@/components/retroui/Card";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -13,26 +14,6 @@ import {
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-async function getStarHistorySvg(repoUrl: string): Promise<string | null> {
-    try {
-        const match = repoUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
-        if (!match) return null;
-        const [, owner, repo] = match;
-        const res = await fetch(
-            `https://api.star-history.com/svg?repos=${owner}/${repo}&type=Date`,
-            { next: { revalidate: 3600 } }
-        );
-        if (!res.ok) return null;
-        const contentLength = res.headers.get("content-length");
-        if (contentLength && parseInt(contentLength) > 200_000) return null;
-        const svg = await res.text();
-        if (svg.length > 200_000 || !svg.includes("<svg")) return null;
-        return svg;
-    } catch {
-        return null;
-    }
-}
-
 export default async function ProjectPage({ params }: { params: Promise<{ name: string }> }) {
     const { name } = await params;
     const decoded = decodeURIComponent(name);
@@ -40,12 +21,15 @@ export default async function ProjectPage({ params }: { params: Promise<{ name: 
     const project = await getProjectByName(decoded);
     if (!project) notFound();
 
-    const isPublic = project.repo?.visibility === "public";
+    // Private repos are not shown on the projects page
+    if (project.repo?.visibility === "private") notFound();
 
-    const [readme, starHistorySvg] = await Promise.all([
-        project.url ? getRepoReadme(project.url) : null,
-        isPublic && project.url ? getStarHistorySvg(project.url) : null,
-    ]);
+    const readme = project.url ? await getRepoReadme(project.url) : null;
+
+    const repo = project.repo?.visibility === "public" ? project.repo : null;
+    const languages = repo?.languages
+        ? Array.from(repo.languages.entries()).sort((a, b) => parseFloat(b[1]) - parseFloat(a[1]))
+        : [];
 
     return (
         <div className="flex flex-col gap-6 py-6">
@@ -63,41 +47,104 @@ export default async function ProjectPage({ params }: { params: Promise<{ name: 
                 </BreadcrumbList>
             </Breadcrumb>
 
-            <div className="flex flex-col gap-2">
-                {project.url ? (
-                    <h1 className="font-sans text-2xl font-bold" style={{ color: "var(--foreground)" }}>
-                        <InlineLink href={project.url} external>{project.name}</InlineLink>
-                    </h1>
+            <div className="flex flex-col gap-6 md:grid md:grid-cols-[280px_1fr] md:items-start">
+                {/* Left column — metadata */}
+                <Card>
+                    <Card.Content>
+                        <div className="flex flex-col gap-5">
+                            {/* Name */}
+                            <div className="flex flex-col gap-1">
+                                <h1 className="font-serif text-xl" style={{ color: "var(--primary)" }}>
+                                    {project.name}
+                                </h1>
+                                {project.description && (
+                                    <p className="font-sans text-sm italic" style={{ color: "var(--muted-text)" }}>
+                                        {project.description}
+                                    </p>
+                                )}
+                                {repo?.description && repo.description !== project.description && (
+                                    <p className="font-sans text-sm" style={{ color: "var(--muted-text)" }}>
+                                        {repo.description}
+                                    </p>
+                                )}
+                            </div>
+
+                            {/* Stats */}
+                            {repo && (
+                                <div className="flex flex-col gap-2">
+                                    <div className="flex items-center gap-2">
+                                        <span className="font-pixel text-[9px] uppercase tracking-widest w-16 shrink-0" style={{ color: "var(--muted-text)" }}>stars</span>
+                                        <span className="font-sans text-sm" style={{ color: "var(--foreground)" }}>{repo.stars}</span>
+                                    </div>
+                                    {repo.most_recent_commit && (
+                                        <div className="flex items-start gap-2">
+                                            <span className="font-pixel text-[9px] uppercase tracking-widest w-16 shrink-0 pt-0.5" style={{ color: "var(--muted-text)" }}>commit</span>
+                                            <span className="font-sans text-sm leading-snug" style={{ color: "var(--foreground)" }}>{repo.most_recent_commit}</span>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* Languages */}
+                            {languages.length > 0 && (
+                                <div className="flex flex-col gap-2">
+                                    <p className="font-pixel text-[9px] uppercase tracking-widest" style={{ color: "var(--muted-text)" }}>languages</p>
+                                    <div className="flex flex-col gap-1.5">
+                                        {languages.map(([lang, percent]) => (
+                                            <div key={lang} className="flex items-center gap-2">
+                                                {DEVICON_MAP[lang] && (
+                                                    // eslint-disable-next-line @next/next/no-img-element
+                                                    <img
+                                                        src={deviconUrl(lang)}
+                                                        alt={lang}
+                                                        width={14}
+                                                        height={14}
+                                                        className="shrink-0"
+                                                        style={{ filter: "brightness(0) invert(0.7)" }}
+                                                    />
+                                                )}
+                                                <span className="font-sans text-sm" style={{ color: "var(--foreground)" }}>{lang}</span>
+                                                <span className="font-sans text-xs ml-auto" style={{ color: "var(--muted-text)" }}>{percent}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* GitHub link */}
+                            {repo?.link && (
+                                <a
+                                    href={repo.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="font-pixel text-[10px] uppercase tracking-widest px-3 py-2 w-fit transition-colors duration-150 hover:bg-[var(--muted-bg)]"
+                                    style={{ border: "1px solid var(--border-color)", color: "var(--foreground)" }}
+                                >
+                                    view on github
+                                </a>
+                            )}
+                        </div>
+                    </Card.Content>
+                </Card>
+
+                {/* Right column — README */}
+                {readme ? (
+                    <Card>
+                        <Card.Header>
+                            <Card.Title>readme</Card.Title>
+                        </Card.Header>
+                        <Card.Content>
+                            <ReadmeDisplay content={readme} />
+                        </Card.Content>
+                    </Card>
                 ) : (
-                    <h1 className="font-sans text-2xl font-bold" style={{ color: "var(--foreground)" }}>{project.name}</h1>
-                )}
-                {project.description && (
-                    <p className="font-sans text-base italic" style={{ color: "var(--muted-text)" }}>{project.description}</p>
-                )}
-                {project.repo?.description && (
-                    <p className="font-sans text-base" style={{ color: "var(--muted-text)" }}>{project.repo.description}</p>
+                    <Card>
+                        <Card.Content>
+                            <p className="font-sans text-sm italic" style={{ color: "var(--muted-text)" }}>No README available.</p>
+                        </Card.Content>
+                    </Card>
                 )}
             </div>
-
-            {starHistorySvg && (
-                <div className="flex flex-col gap-3">
-                    <p className="font-pixel text-xs uppercase tracking-widest" style={{ color: "var(--muted-text)" }}>Star History</p>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                        src={`data:image/svg+xml;base64,${Buffer.from(starHistorySvg).toString("base64")}`}
-                        alt="Star history chart"
-                        className="w-full"
-                        loading="lazy"
-                    />
-                </div>
-            )}
-
-            {readme && (
-                <div className="flex flex-col gap-3">
-                    <p className="font-pixel text-xs uppercase tracking-widest" style={{ color: "var(--muted-text)" }}>README.md</p>
-                    <ReadmeDisplay content={readme} />
-                </div>
-            )}
         </div>
     );
 }

@@ -175,7 +175,7 @@ hr {
 }
 
 code {
-  background: var(--accent);
+  background: var(--muted-bg);
   color: var(--foreground);
   padding: 0.1rem 0.3rem;
   border-radius: 0.25rem;

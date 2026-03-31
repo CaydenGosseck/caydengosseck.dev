@@ -1,0 +1,62 @@
+/* MDXEditor dark theme overrides to match site palette */
+
+.dark-editor {
+    --accentBase: var(--accent);
+    --accentBgSubtle: var(--muted-bg);
+    --accentBg: var(--muted-bg);
+    --accentBgHover: var(--muted-bg);
+    --accentBgActive: var(--accent);
+    --accentLine: var(--border-color);
+    --accentBorder: var(--border-color);
+    --accentBorderHover: var(--border-color);
+    --accentSolid: var(--accent);
+    --accentSolidHover: var(--accent);
+    --accentText: var(--foreground);
+    --accentTextContrast: var(--foreground);
+
+    --baseBase: #0d0010;
+    --baseBgSubtle: var(--muted-bg);
+    --baseBg: var(--card-bg);
+    --baseBgHover: var(--muted-bg);
+    --baseBgActive: var(--muted-bg);
+    --baseLine: var(--border-color);
+    --baseBorder: var(--border-color);
+    --baseBorderHover: var(--border-color);
+    --baseSolid: var(--muted-bg);
+    --baseSolidHover: var(--muted-bg);
+    --baseText: var(--muted-text);
+    --baseTextContrast: var(--foreground);
+
+    --basePageBg: var(--card-bg);
+    color: var(--foreground);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+
+.dark-editor .mdxeditor-toolbar {
+    background: var(--muted-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dark-editor .mdxeditor-root-contenteditable {
+    font-family: var(--font-forum), serif;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    padding: 0.75rem 1rem;
+    min-height: 800px;
+    color: var(--foreground);
+}
+
+.dark-editor .mdxeditor-root-contenteditable div[contenteditable] {
+    min-height: 800px;
+}
+
+.dark-editor [class*="cm-editor"] {
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 0.875rem;
+}
+
+.dark-editor [class*="cm-gutters"] {
+    background: var(--muted-bg) !important;
+    border-right: 1px solid var(--border-color) !important;
+}

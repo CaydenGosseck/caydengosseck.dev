@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getBlogByTitle } from "@/lib/dal/blogs";
 import { getPostsByBlog } from "@/lib/dal/posts";
 import DateDisplay from "@/components/date-display";
-import SubscribeForm from "@/components/subscribe-form";
+import SubscribeModal from "@/components/subscribe-modal";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -69,7 +69,7 @@ export default async function BlogPage({ params }: { params: Promise<{ title: st
                     ))}
                 </div>
             )}
-            <SubscribeForm blogTitle={blog.title} />
+            <SubscribeModal blogTitle={blog.title} />
         </div>
     );
 }

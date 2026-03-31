@@ -36,7 +36,7 @@ function CodeBlock({ className, children }: CodeProps) {
     return (
         <code
             className="text-sm px-1"
-            style={{ background: "var(--card-bg)", color: "var(--foreground)", fontFamily: "var(--font-geist-mono)" }}
+            style={{ background: "var(--muted-bg)", color: "var(--foreground)", fontFamily: "var(--font-geist-mono)" }}
         >
             {children}
         </code>
