@@ -8,6 +8,7 @@ import RecentUpdates from "@/components/recent-updates";
 import Nav from "@/components/nav";
 import SocialIcons from "@/components/social-icons";
 import StarField from "@/components/starfield";
+import LastUpdated from "@/components/last-updated";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -108,11 +109,14 @@ export default function RootLayout({
                                 </div>
                                 <SocialIcons />
                             </div>
-                            {/* Row 2: mini blog + updates under title */}
+                            {/* Row 2: mini blog + updates + last updated */}
                             <div className="flex items-center gap-3 pb-3">
                                 <MiniBlogSection />
                                 <span style={{ color: "var(--border-color)" }} aria-hidden="true">·</span>
                                 <RecentUpdates />
+                                <div className="ml-auto">
+                                    <LastUpdated />
+                                </div>
                             </div>
                         </header>
                         <main id="main-content" className="px-4 md:px-6 pt-4 md:pt-6 pb-8 md:pb-12 w-full max-w-3xl">
