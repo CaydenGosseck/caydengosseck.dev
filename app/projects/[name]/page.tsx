@@ -67,7 +67,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ name: 
                 </BreadcrumbList>
             </Breadcrumb>
 
-            <div className="flex flex-col gap-6 md:grid md:grid-cols-[280px_1fr] md:items-start">
+            <div className="flex flex-col gap-6 md:grid md:grid-cols-[500px_1fr] md:items-start">
                 {/* Left column — metadata */}
                 <Card>
                     <Card.Content>
@@ -94,12 +94,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ name: 
                                 <div className="flex flex-col gap-2">
                                     <div className="flex items-center gap-2">
                                         <span className="font-pixel text-[9px] uppercase tracking-widest w-16 shrink-0" style={{ color: "var(--muted-text)" }}>stars</span>
-                                        <span className="font-sans text-sm" style={{ color: "var(--foreground)" }}>{repo.stars}</span>
+                                        <span className="font-sans text-sm" style={{ color: "var(--foreground)" }}>{repo.stars === 0 ? "---" : repo.stars}</span>
                                     </div>
                                     {repo.most_recent_commit && (
                                         <div className="flex items-start gap-2">
                                             <span className="font-pixel text-[9px] uppercase tracking-widest w-16 shrink-0 pt-0.5" style={{ color: "var(--muted-text)" }}>commit</span>
-                                            <span className="font-sans text-sm leading-snug" style={{ color: "var(--foreground)" }}>{repo.most_recent_commit}</span>
+                                            <span className="font-sans italic text-sm leading-snug" style={{ color: "var(--foreground)" }}>{repo.most_recent_commit}</span>
                                         </div>
                                     )}
                                 </div>
